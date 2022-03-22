@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://ded.tres" type="Material" id=2]
+[ext_resource path="res://Killsyou.gd" type="Script" id=3]
+[ext_resource path="res://main.gd" type="Script" id=4]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 17.8068, 1, 16.5697 )
+
+[node name="Spatial" type="Spatial"]
+script = ExtResource( 4 )
+
+[node name="CSGCombiner" type="CSGCombiner" parent="."]
+use_collision = true
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.77171 )
+width = 40.4955
+height = 7.16141
+depth = 19.3853
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( 0.910741, -0.323101, 0.257208, 0.412977, 0.712536, -0.567223, 0, 0.622815, 0.782369, 9.45923, -1.28134, 7.15989 )
+width = 2.48929
+height = 2.15991
+depth = 7.38243
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( -0.161748, 0.670297, 0.724251, 0.412977, 0.712536, -0.567223, -0.896263, 0.207352, -0.392068, -5.58676, -1.28134, 8.09556 )
+width = 2.48929
+height = 2.15991
+depth = 7.38243
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner"]
+transform = Transform( -0.23132, 0.535697, 0.812108, 0.378422, 0.818556, -0.432161, -0.896263, 0.207352, -0.392068, 2.18128, 0.99544, 8.09556 )
+width = 2.48929
+height = 2.15991
+depth = 7.38243
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.51334, -4.26842 )
+
+[node name="Killsyou" type="StaticBody" parent="."]
+script = ExtResource( 3 )
+
+[node name="CSGBox" type="CSGBox" parent="Killsyou"]
+width = 35.5339
+depth = 33.3113
+material = ExtResource( 2 )
+
+[node name="Area" type="Area" parent="Killsyou"]
+
+[node name="CollisionShape" type="CollisionShape" parent="Killsyou/Area"]
+shape = SubResource( 1 )
+
+[connection signal="area_entered" from="Killsyou/Area" to="Killsyou" method="_on_Area_area_entered"]
